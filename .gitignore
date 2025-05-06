@@ -10,3 +10,6 @@
 # Ignore file IDE
 .idea/
 *.iml
+
+# Ignore Visual Studio Code settings
+.vscode/
