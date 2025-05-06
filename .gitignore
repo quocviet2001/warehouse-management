@@ -1,0 +1,12 @@
+# Ignore thư mục build và dependencies
+/warehouse-backend/target/
+/frontend-backend/node_modules/
+/frontend-backend/build/
+
+# Ignore file cấu hình cục bộ
+*.log
+*.env
+
+# Ignore file IDE
+.idea/
+*.iml
