@@ -1,0 +1,44 @@
+package com.warehouse.warehouse_backend.service;
+
+import com.warehouse.warehouse_backend.dto.UserDTO;
+import com.warehouse.warehouse_backend.entity.User;
+import com.warehouse.warehouse_backend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public UserDTO createUser(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Mã hóa mật khẩu
+        user.setRole(userDTO.getRole());
+
+        user = userRepository.save(user);
+
+        userDTO.setId(user.getId());
+        userDTO.setPassword(null); // Không trả về mật khẩu
+        return userDTO;
+    }
+
+    public List<UserDTO> getUsers() {
+        return userRepository.findAll().stream().map(user -> {
+            UserDTO dto = new UserDTO();
+            dto.setId(user.getId());
+            dto.setUsername(user.getUsername());
+            dto.setRole(user.getRole());
+            return dto;
+        }).collect(Collectors.toList());
+    }
+}
