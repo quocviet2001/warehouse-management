@@ -26,6 +26,29 @@ public class CategoryService {
         }).collect(Collectors.toList());
     }
 
+    public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        category.setName(categoryDTO.getName());
+        category = categoryRepository.save(category);
+        categoryDTO.setId(category.getId());
+        return categoryDTO;
+    }
+
+    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        category.setName(categoryDTO.getName());
+        category = categoryRepository.save(category);
+        categoryDTO.setId(category.getId());
+        return categoryDTO;
+    }
+
+    public void deleteCategory(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+        categoryRepository.delete(category);
+    }
+
     // Lấy danh sách sản phẩm thuộc một danh mục
     public List<ProductDTO> getStockByCategory(Long categoryId) {
         // Tìm danh mục theo ID, ném ngoại lệ nếu không tìm thấy

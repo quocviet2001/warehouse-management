@@ -32,6 +32,29 @@ public class UserService {
         return userDTO;
     }
 
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setUsername(userDTO.getUsername());
+        if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Mã hóa mật khẩu mới
+        }
+        user.setRole(userDTO.getRole());
+
+        user = userRepository.save(user);
+
+        userDTO.setId(user.getId());
+        userDTO.setPassword(null); // Không trả về mật khẩu
+        return userDTO;
+    }
+
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.delete(user);
+    }
+
     public List<UserDTO> getUsers() {
         return userRepository.findAll().stream().map(user -> {
             UserDTO dto = new UserDTO();

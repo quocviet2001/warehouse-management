@@ -1,7 +1,7 @@
 package com.warehouse.warehouse_backend.controller;
 
+import com.warehouse.warehouse_backend.dto.InOutReportDTO;
 import com.warehouse.warehouse_backend.dto.ProductDTO;
-import com.warehouse.warehouse_backend.dto.StockInDTO;
 import com.warehouse.warehouse_backend.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,7 +21,7 @@ public class ReportController {
 
     @GetMapping("/in-out")
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ResponseEntity<List<StockInDTO>> getInOutReport(
+    public ResponseEntity<List<InOutReportDTO>> getInOutReport(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
         return ResponseEntity.ok(reportService.getInOutReport(startDate, endDate));
