@@ -35,6 +35,7 @@ public class ProductService {
         product = productRepository.save(product);
 
         productDTO.setId(product.getId());
+        productDTO.setCategoryName(product.getCategory().getName());
         return productDTO;
     }
 
@@ -54,6 +55,7 @@ public class ProductService {
 
         productRepository.save(product);
         productDTO.setId(id);
+        productDTO.setCategoryName(product.getCategory().getName());
         return productDTO;
     }
 
@@ -63,12 +65,10 @@ public class ProductService {
         productRepository.delete(product);
     }
 
-    public List<ProductDTO> getProducts(String name, String sku) {
+    public List<ProductDTO> getProducts(String query) {
         List<Product> products;
-        if (name != null && !name.isEmpty()) {
-            products = productRepository.findByNameContainingIgnoreCase(name);
-        } else if (sku != null && !sku.isEmpty()) {
-            products = productRepository.findBySkuContainingIgnoreCase(sku);
+        if (query != null && !query.isEmpty()) {
+            products = productRepository.findByNameOrSkuContainingIgnoreCase(query);
         } else {
             products = productRepository.findAll();
         }
@@ -82,6 +82,7 @@ public class ProductService {
             dto.setQuantity(product.getQuantity());
             dto.setPrice(product.getPrice());
             dto.setCategoryId(product.getCategory().getId());
+            dto.setCategoryName(product.getCategory().getName());
             return dto;
         }).collect(Collectors.toList());
     }

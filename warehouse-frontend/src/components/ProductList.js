@@ -21,7 +21,7 @@ function ProductList({ products, onDelete, onEdit }) {
               <td className="px-4 py-2 border">{product.unit}</td>
               <td className="px-4 py-2 border">{product.quantity}</td>
               <td className="px-4 py-2 border">{product.price}</td>
-              <td className="px-4 py-2 border">{product.categoryId}</td>
+              <td className="px-4 py-2 border">{product.categoryName}</td>
               <td className="px-4 py-2 border">
                 {onEdit && (
                   <button

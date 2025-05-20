@@ -32,4 +32,11 @@ public class ReportController {
     public ResponseEntity<List<ProductDTO>> getStockStatusReport() {
         return ResponseEntity.ok(reportService.getStockStatusReport());
     }
+
+    @GetMapping("/low-stock")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    public ResponseEntity<List<ProductDTO>> getLowStockProducts(@RequestParam(defaultValue = "20") int threshold) {
+        return ResponseEntity.ok(reportService.getLowStockProducts(threshold));
+    }
+
 }

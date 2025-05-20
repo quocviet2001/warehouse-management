@@ -42,6 +42,8 @@ public class StockOutService {
         stockOut = stockOutRepository.save(stockOut);
 
         stockOutDTO.setId(stockOut.getId());
+        stockOutDTO.setProductSku(product.getSku());
+        stockOutDTO.setProductName(product.getName());
         return stockOutDTO;
     }
 
@@ -50,6 +52,8 @@ public class StockOutService {
             StockOutDTO dto = new StockOutDTO();
             dto.setId(stockOut.getId());
             dto.setProductId(stockOut.getProduct().getId());
+            dto.setProductSku(stockOut.getProduct().getSku());
+            dto.setProductName(stockOut.getProduct().getName());
             dto.setQuantity(stockOut.getQuantity());
             dto.setDate(stockOut.getDate());
             dto.setReason(stockOut.getReason());

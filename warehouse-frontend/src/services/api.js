@@ -27,8 +27,8 @@ export const login = async (username, password) => {
 };
 
 // API quản lý sản phẩm
-export const getProducts = async (name = '', sku = '') => {
-  const response = await api.get('/products', { params: { name, sku } });
+export const getProducts = async (query = '') => {
+  const response = await api.get('/products', { params: { query } });
   return response.data;
 };
 
@@ -103,6 +103,11 @@ export const getInOutReport = async (startDate, endDate) => {
 
 export const getStockStatusReport = async () => {
   const response = await api.get('/reports/stock-status');
+  return response.data;
+};
+
+export const getLowStockProducts = async (threshold) => {
+  const response = await api.get('/reports/low-stock', { params: { threshold } });
   return response.data;
 };
 

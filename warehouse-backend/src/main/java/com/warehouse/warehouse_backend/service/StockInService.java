@@ -37,6 +37,8 @@ public class StockInService {
 
         stockIn = stockInRepository.save(stockIn);
 
+        stockInDTO.setProductSku(product.getSku());
+        stockInDTO.setProductName(product.getName());
         stockInDTO.setId(stockIn.getId());
         return stockInDTO;
     }
@@ -46,6 +48,8 @@ public class StockInService {
             StockInDTO dto = new StockInDTO();
             dto.setId(stockIn.getId());
             dto.setProductId(stockIn.getProduct().getId());
+            dto.setProductSku(stockIn.getProduct().getSku());
+            dto.setProductName(stockIn.getProduct().getName());
             dto.setQuantity(stockIn.getQuantity());
             dto.setDate(stockIn.getDate());
             dto.setReason(stockIn.getReason());

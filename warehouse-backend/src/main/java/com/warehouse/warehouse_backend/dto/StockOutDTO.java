@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 public class StockOutDTO {
     private Long id;
     private Long productId; // ID sản phẩm
+    private String productSku;
+    private String productName;
     private int quantity; // Số lượng xuất
     private LocalDateTime date; // Ngày xuất
     private String reason; // Lý do

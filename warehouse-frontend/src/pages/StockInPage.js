@@ -37,7 +37,8 @@ function StockInPage() {
           <table className="min-w-full bg-white border">
             <thead>
               <tr>
-                <th className="px-4 py-2 border">Product ID</th>
+                <th className="px-4 py-2 border">SKU</th>
+                <th className="px-4 py-2 border">Product Name</th>
                 <th className="px-4 py-2 border">Quantity</th>
                 <th className="px-4 py-2 border">Date</th>
                 <th className="px-4 py-2 border">Reason</th>
@@ -47,7 +48,8 @@ function StockInPage() {
             <tbody>
               {stockIns.map((stockIn) => (
                 <tr key={stockIn.id}>
-                  <td className="px-4 py-2 border">{stockIn.productId}</td>
+                  <td className="px-4 py-2 border">{stockIn.productSku}</td>
+                  <td className="px-4 py-2 border">{stockIn.productName}</td>
                   <td className="px-4 py-2 border">{stockIn.quantity}</td>
                   <td className="px-4 py-2 border">{stockIn.date}</td>
                   <td className="px-4 py-2 border">{stockIn.reason}</td>

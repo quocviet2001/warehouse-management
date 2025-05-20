@@ -37,9 +37,7 @@ public class ProductController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
-    public ResponseEntity<List<ProductDTO>> getProducts(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String sku) {
-        return ResponseEntity.ok(productService.getProducts(name, sku));
+    public ResponseEntity<List<ProductDTO>> getProducts(@RequestParam(required = false) String query) {
+        return ResponseEntity.ok(productService.getProducts(query));
     }
 }

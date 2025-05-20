@@ -34,6 +34,9 @@ function ReportPage() {
     fetchInOutReport();
   };
 
+  const lowStockProducts = stockStatusReport.filter((product) => product.quantity <= 20);
+  const highStockProducts = stockStatusReport.filter((product) => product.quantity >= 200);
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Reports</h1>
@@ -72,7 +75,8 @@ function ReportPage() {
             <thead>
               <tr>
                 <th className="px-4 py-2 border">Type</th>
-                <th className="px-4 py-2 border">Product ID</th>
+                <th className="px-4 py-2 border">SKU</th>
+                <th className="px-4 py-2 border">Product Name</th>
                 <th className="px-4 py-2 border">Quantity</th>
                 <th className="px-4 py-2 border">Date</th>
                 <th className="px-4 py-2 border">Reason</th>
@@ -83,7 +87,8 @@ function ReportPage() {
               {inOutReport.map((item) => (
                 <tr key={`${item.type}-${item.id}`}>
                   <td className="px-4 py-2 border">{item.type}</td>
-                  <td className="px-4 py-2 border">{item.productId}</td>
+                  <td className="px-4 py-2 border">{item.productSku}</td>
+                  <td className="px-4 py-2 border">{item.productName}</td>
                   <td className="px-4 py-2 border">{item.quantity}</td>
                   <td className="px-4 py-2 border">{item.date}</td>
                   <td className="px-4 py-2 border">{item.reason}</td>
@@ -94,34 +99,71 @@ function ReportPage() {
           </table>
         </div>
       </div>
-      <div>
-        <h2 className="text-2xl font-bold mb-4">Stock Status Report</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 border">Name</th>
-                <th className="px-4 py-2 border">SKU</th>
-                <th className="px-4 py-2 border">Unit</th>
-                <th className="px-4 py-2 border">Quantity</th>
-                <th className="px-4 py-2 border">Price</th>
-                <th className="px-4 py-2 border">Category</th>
-              </tr>
-            </thead>
-            <tbody>
-              {stockStatusReport.map((product) => (
-                <tr key={product.id}>
-                  <td className="px-4 py-2 border">{product.name}</td>
-                  <td className="px-4 py-2 border">{product.sku}</td>
-                  <td className="px-4 py-2 border">{product.unit}</td>
-                  <td className="px-4 py-2 border">{product.quantity}</td>
-                  <td className="px-4 py-2 border">{product.price}</td>
-                  <td className="px-4 py-2 border">{product.categoryId}</td>
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold mb-4">Low Stock Report</h2>
+        {lowStockProducts.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border">Name</th>
+                  <th className="px-4 py-2 border">SKU</th>
+                  <th className="px-4 py-2 border">Unit</th>
+                  <th className="px-4 py-2 border">Quantity</th>
+                  <th className="px-4 py-2 border">Price</th>
+                  <th className="px-4 py-2 border">Category</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {lowStockProducts.map((product) => (
+                  <tr key={product.id} className={product.quantity === 0 ? 'bg-red-100' : 'bg-yellow-100'}>
+                    <td className="px-4 py-2 border">{product.name}</td>
+                    <td className="px-4 py-2 border">{product.sku}</td>
+                    <td className="px-4 py-2 border">{product.unit}</td>
+                    <td className="px-4 py-2 border">{product.quantity}</td>
+                    <td className="px-4 py-2 border">{product.price}</td>
+                    <td className="px-4 py-2 border">{product.categoryName}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-gray-600">No low stock products.</p>
+        )}
+      </div>
+      <div>
+        <h2 className="text-2xl font-bold mb-4">High Stock Report</h2>
+        {highStockProducts.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white border">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 border">Name</th>
+                  <th className="px-4 py-2 border">SKU</th>
+                  <th className="px-4 py-2 border">Unit</th>
+                  <th className="px-4 py-2 border">Quantity</th>
+                  <th className="px-4 py-2 border">Price</th>
+                  <th className="px-4 py-2 border">Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                {highStockProducts.map((product) => (
+                  <tr key={product.id}>
+                    <td className="px-4 py-2 border">{product.name}</td>
+                    <td className="px-4 py-2 border">{product.sku}</td>
+                    <td className="px-4 py-2 border">{product.unit}</td>
+                    <td className="px-4 py-2 border">{product.quantity}</td>
+                    <td className="px-4 py-2 border">{product.price}</td>
+                    <td className="px-4 py-2 border">{product.categoryName}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-gray-600">No high stock products.</p>
+        )}
       </div>
     </div>
   );

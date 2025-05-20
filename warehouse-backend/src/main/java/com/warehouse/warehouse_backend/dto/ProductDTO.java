@@ -11,4 +11,5 @@ public class ProductDTO {
     private int quantity; // Số lượng
     private double price; // Giá
     private Long categoryId; // ID danh mục
+    private String categoryName; // Tên danh mục
 }

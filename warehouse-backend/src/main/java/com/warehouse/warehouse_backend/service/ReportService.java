@@ -34,6 +34,8 @@ public class ReportService {
             InOutReportDTO dto = new InOutReportDTO();
             dto.setId(stockIn.getId());
             dto.setProductId(stockIn.getProduct().getId());
+            dto.setProductSku(stockIn.getProduct().getSku());
+            dto.setProductName(stockIn.getProduct().getName());
             dto.setQuantity(stockIn.getQuantity());
             dto.setDate(stockIn.getDate());
             dto.setReason(stockIn.getReason());
@@ -48,6 +50,8 @@ public class ReportService {
             InOutReportDTO dto = new InOutReportDTO();
             dto.setId(stockOut.getId());
             dto.setProductId(stockOut.getProduct().getId());
+            dto.setProductSku(stockOut.getProduct().getSku());
+            dto.setProductName(stockOut.getProduct().getName());
             dto.setQuantity(stockOut.getQuantity());
             dto.setDate(stockOut.getDate());
             dto.setReason(stockOut.getReason());
@@ -69,7 +73,7 @@ public class ReportService {
 
     public List<ProductDTO> getStockStatusReport() {
         return productRepository.findAll().stream()
-                .filter(product -> product.getQuantity() > 100 || product.getQuantity() < 10) // Hàng tồn nhiều (>100) hoặc sắp hết (<10)
+                .filter(product -> product.getQuantity() > 200 || product.getQuantity() < 20) // Hàng tồn nhiều (>200) hoặc sắp hết (<20)
                 .map(product -> {
                     ProductDTO dto = new ProductDTO();
                     dto.setId(product.getId());
@@ -81,5 +85,20 @@ public class ReportService {
                     dto.setCategoryId(product.getCategory().getId());
                     return dto;
                 }).collect(Collectors.toList());
+    }
+
+    public List<ProductDTO> getLowStockProducts(int threshold) {
+        return productRepository.findByQuantityLessThanEqual(threshold).stream().map(product -> {
+            ProductDTO dto = new ProductDTO();
+            dto.setId(product.getId());
+            dto.setName(product.getName());
+            dto.setSku(product.getSku());
+            dto.setUnit(product.getUnit());
+            dto.setQuantity(product.getQuantity());
+            dto.setPrice(product.getPrice());
+            dto.setCategoryId(product.getCategory().getId());
+            dto.setCategoryName(product.getCategory().getName());
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

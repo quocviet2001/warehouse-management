@@ -37,7 +37,8 @@ function StockOutPage() {
           <table className="min-w-full bg-white border">
             <thead>
               <tr>
-                <th className="px-4 py-2 border">Product ID</th>
+                <th className="px-4 py-2 border">SKU</th>
+                <th className="px-4 py-2 border">Product Name</th>
                 <th className="px-4 py-2 border">Quantity</th>
                 <th className="px-4 py-2 border">Date</th>
                 <th className="px-4 py-2 border">Reason</th>
@@ -47,7 +48,8 @@ function StockOutPage() {
             <tbody>
               {stockOuts.map((stockOut) => (
                 <tr key={stockOut.id}>
-                  <td className="px-4 py-2 border">{stockOut.productId}</td>
+                  <td className="px-4 py-2 border">{stockOut.productSku}</td>
+                  <td className="px-4 py-2 border">{stockOut.productName}</td>
                   <td className="px-4 py-2 border">{stockOut.quantity}</td>
                   <td className="px-4 py-2 border">{stockOut.date}</td>
                   <td className="px-4 py-2 border">{stockOut.reason}</td>

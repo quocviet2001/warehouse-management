@@ -13,9 +13,10 @@ import {
 function ProductPage() {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [categoryId, setCategoryId] = useState('');
+  const [categoryId, setCategoryId] = useState("");
   const [categories, setCategories] = useState([]);
   const [editProduct, setEditProduct] = useState(null);
+  const [showForm, setShowForm] = useState(false);
   const role = localStorage.getItem("role");
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function ProductPage() {
       const data = await getCategories();
       setCategories(data);
     } catch (err) {
-      console.error('Failed to fetch categories:', err);
+      console.error("Failed to fetch categories:", err);
     }
   };
 
@@ -42,13 +43,14 @@ function ProductPage() {
         setProducts(data);
       }
     } catch (err) {
-      console.error('Failed to fetch products:', err);
+      console.error("Failed to fetch products:", err);
     }
   };
 
   const handleCreate = async (product) => {
     try {
       await createProduct(product);
+      setShowForm(false);
       fetchProducts();
     } catch (err) {
       console.error("Failed to create product:", err);
@@ -59,6 +61,7 @@ function ProductPage() {
     try {
       await updateProduct(product.id, product);
       setEditProduct(null);
+      setShowForm(false);
       fetchProducts();
     } catch (err) {
       console.error("Failed to update product:", err);
@@ -76,6 +79,7 @@ function ProductPage() {
 
   const handleEdit = (product) => {
     setEditProduct(product);
+    setShowForm(true);
   };
 
   return (
@@ -102,16 +106,42 @@ function ProductPage() {
           ))}
         </select>
       </div>
-      {role === 'ADMIN' && (
-        <ProductForm
-          onSubmit={editProduct ? handleUpdate : handleCreate}
-          initialData={editProduct}
-        />
+      {role === "ADMIN" && (
+        <div className="mb-6">
+          <button
+            onClick={() => {
+              setEditProduct(null);
+              setShowForm(true);
+            }}
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          >
+            Add Product
+          </button>
+        </div>
+      )}
+      {showForm && role === "ADMIN" && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <h2 className="text-xl font-bold mb-4">
+              {editProduct ? "Edit Product" : "Add Product"}
+            </h2>
+            <ProductForm
+              onSubmit={editProduct ? handleUpdate : handleCreate}
+              initialData={editProduct}
+            />
+            <button
+              onClick={() => setShowForm(false)}
+              className="mt-4 w-full bg-gray-500 text-white p-2 rounded hover:bg-gray-600"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
       )}
       <ProductList
         products={products}
-        onDelete={role === 'ADMIN' ? handleDelete : null}
-        onEdit={role === 'ADMIN' ? handleEdit : null}
+        onDelete={role === "ADMIN" ? handleDelete : null}
+        onEdit={role === "ADMIN" ? handleEdit : null}
       />
     </div>
   );
