@@ -1,14 +1,18 @@
 # Sử dụng image openjdk 21 làm base
 FROM openjdk:21-jdk-slim
 
-# Đặt thư mục làm việc
+# Thiết lập thư mục làm việc
 WORKDIR /app
 
-# Sao chép file JAR từ build Maven
-COPY target/warehouse-backend-0.0.1-SNAPSHOT.jar app.jar
+# Sao chép file Maven và source code
+COPY pom.xml .
+COPY src ./src
 
-# Mở port 8080
+# Cài đặt Maven và build ứng dụng
+RUN apt-get update && apt-get install -y maven && mvn clean package -DskipTests
+
+# Expose cổng 8080
 EXPOSE 8080
 
 # Lệnh chạy ứng dụng
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/warehouse-backend-0.0.1-SNAPSHOT.jar"]

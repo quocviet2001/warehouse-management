@@ -1,41 +1,56 @@
-# Phiên bản Docker Compose
 version: '3.8'
 
-# Định nghĩa các service
 services:
-  # Service backend
   backend:
     build:
-      context: ./backend
+      context: ./warehouse-backend
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      - SPRING_JPA_SHOW_SQL=${SPRING_JPA_SHOW_SQL}
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION}
+      - SERVER_PORT=${SERVER_PORT}
     depends_on:
       - mysql
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/warehouse_db?useSSL=false&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=password
+    networks:
+      - warehouse-network
+    env_file:
+      - .env
 
-  # Service frontend
+
   frontend:
     build:
-      context: ./frontend
+      context: ./warehouse-frontend
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - warehouse-network
 
-  # Service MySQL
   mysql:
     image: mysql:8.0
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=warehouse_db
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - warehouse-network
 
-# Định nghĩa volume để lưu trữ dữ liệu MySQL
 volumes:
   mysql-data:
+
+networks:
+  warehouse-network:
+    driver: bridge
