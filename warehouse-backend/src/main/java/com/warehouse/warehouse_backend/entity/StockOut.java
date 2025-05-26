@@ -16,16 +16,16 @@ public class StockOut {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product; // Sản phẩm được xuất
+    private Product product; 
 
     @Column(nullable = false)
-    private int quantity; // Số lượng xuất
+    private int quantity; 
 
     @Column(nullable = false)
-    private LocalDateTime date; // Ngày xuất
+    private LocalDateTime date; 
 
     @Column(nullable = false)
-    private String reason; // Lý do xuất (ví dụ: bán hàng, hủy hỏng)
+    private String reason; 
 
-    private String note; // Ghi chú (tùy chọn)
+    private String note; 
 }

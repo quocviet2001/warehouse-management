@@ -24,7 +24,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        // Lấy token từ header Authorization
         String header = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
@@ -34,7 +33,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             username = jwtUtil.getUsernameFromToken(jwt);
         }
 
-        // Nếu token hợp lệ, thiết lập authentication
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if (jwtUtil.validateToken(jwt)) {
                 String role = jwtUtil.getRoleFromToken(jwt);

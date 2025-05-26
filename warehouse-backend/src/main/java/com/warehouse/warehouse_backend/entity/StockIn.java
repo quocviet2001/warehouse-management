@@ -16,16 +16,16 @@ public class StockIn {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private Product product; // Sản phẩm được nhập
+    private Product product; 
 
     @Column(nullable = false)
-    private int quantity; // Số lượng nhập
+    private int quantity; 
 
     @Column(nullable = false)
-    private LocalDateTime date; // Ngày nhập
+    private LocalDateTime date; 
 
     @Column(nullable = false)
-    private String reason; // Lý do nhập (ví dụ: mua mới)
+    private String reason; 
 
-    private String note; // Ghi chú (tùy chọn)
+    private String note; 
 }

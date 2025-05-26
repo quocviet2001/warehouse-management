@@ -22,13 +22,13 @@ public class UserService {
     public UserDTO createUser(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Mã hóa mật khẩu
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword())); 
         user.setRole(userDTO.getRole());
 
         user = userRepository.save(user);
 
         userDTO.setId(user.getId());
-        userDTO.setPassword(null); // Không trả về mật khẩu
+        userDTO.setPassword(null); 
         return userDTO;
     }
 
@@ -38,14 +38,14 @@ public class UserService {
 
         user.setUsername(userDTO.getUsername());
         if (userDTO.getPassword() != null && !userDTO.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(userDTO.getPassword())); // Mã hóa mật khẩu mới
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword())); 
         }
         user.setRole(userDTO.getRole());
 
         user = userRepository.save(user);
 
         userDTO.setId(user.getId());
-        userDTO.setPassword(null); // Không trả về mật khẩu
+        userDTO.setPassword(null);
         return userDTO;
     }
 

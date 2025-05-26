@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Table(name = "users")
-@Data // Lombok: tự động tạo getter, setter, toString, v.v.
+@Data 
 public class User {
 
     @Id
@@ -13,11 +13,11 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username; // Tên đăng nhập
+    private String username; 
 
     @Column(nullable = false)
-    private String password; // Mật khẩu (sẽ mã hóa)
+    private String password; 
 
     @Column(nullable = false)
-    private String role; // Vai trò: ADMIN hoặc EMPLOYEE
+    private String role; 
 }

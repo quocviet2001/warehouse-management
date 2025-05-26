@@ -13,5 +13,5 @@ public class InOutReportDTO {
     private LocalDateTime date;
     private String reason;
     private String note;
-    private String type; // STOCK_IN hoặc STOCK_OUT
+    private String type; 
 }

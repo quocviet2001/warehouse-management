@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Tạo instance axios với cấu hình mặc định
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api', // URL backend
+  baseURL: 'http://localhost:8080/api', 
   headers: {
     'Content-Type': 'application/json',
   },

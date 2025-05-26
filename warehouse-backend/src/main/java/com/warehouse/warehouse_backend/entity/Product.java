@@ -13,21 +13,21 @@ public class Product {
     private Long id;
 
     @Column(nullable = false)
-    private String name; // Tên sản phẩm
+    private String name; 
 
     @Column(nullable = false, unique = true)
-    private String sku; // Mã sản phẩm (SKU)
+    private String sku; 
 
     @Column(nullable = false)
-    private String unit; // Đơn vị tính (ví dụ: cái, kg)
+    private String unit; 
 
     @Column(nullable = false)
-    private int quantity; // Số lượng tồn kho
+    private int quantity; 
 
     @Column(nullable = false)
-    private double price; // Giá sản phẩm
+    private double price; 
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
-    private Category category; // Danh mục sản phẩm
+    private Category category; 
 }

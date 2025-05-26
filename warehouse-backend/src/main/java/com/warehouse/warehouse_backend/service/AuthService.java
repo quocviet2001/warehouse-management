@@ -25,7 +25,6 @@ public class AuthService {
     private UserRepository userRepository;
 
     public LoginResponse login(LoginRequest loginRequest) {
-        // Xác thực username và password
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
@@ -33,17 +32,13 @@ public class AuthService {
                 )
         );
 
-        // Lưu authentication vào SecurityContext
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Tìm user trong database
         User user = userRepository.findByUsername(loginRequest.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Tạo JWT token
         String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
 
-        // Trả về response chứa token
         LoginResponse response = new LoginResponse();
         response.setToken(token);
         return response;

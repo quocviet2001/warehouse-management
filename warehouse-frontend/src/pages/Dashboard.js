@@ -21,7 +21,7 @@ function Dashboard() {
           getProducts(),
           getStockIns(),
           getStockOuts(),
-          getLowStockProducts(10), 
+          getLowStockProducts(), 
         ]);
 
         setStats({

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class LoginRequest {
-    private String username; // Tên đăng nhập
-    private String password; // Mật khẩu
+    private String username; 
+    private String password; 
 }

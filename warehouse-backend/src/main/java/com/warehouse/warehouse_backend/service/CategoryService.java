@@ -16,7 +16,6 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Lấy danh sách tất cả danh mục
     public List<CategoryDTO> getCategories() {
         return categoryRepository.findAll().stream().map(category -> {
             CategoryDTO dto = new CategoryDTO();
@@ -49,13 +48,10 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
-    // Lấy danh sách sản phẩm thuộc một danh mục
     public List<ProductDTO> getStockByCategory(Long categoryId) {
-        // Tìm danh mục theo ID, ném ngoại lệ nếu không tìm thấy
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        // Chuyển danh sách sản phẩm sang ProductDTO
         return category.getProducts().stream().map(product -> {
             ProductDTO dto = new ProductDTO();
             dto.setId(product.getId());

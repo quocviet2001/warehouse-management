@@ -14,8 +14,8 @@ public class Category {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name; // Tên danh mục
+    private String name; 
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Product> products; // Danh sách sản phẩm thuộc danh mục
+    private List<Product> products; 
 }

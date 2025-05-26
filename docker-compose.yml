@@ -1,56 +1,51 @@
-version: '3.8'
+  version: '3.8'
 
-services:
-  backend:
-    build:
-      context: ./warehouse-backend
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO}
-      - SPRING_JPA_SHOW_SQL=${SPRING_JPA_SHOW_SQL}
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
-      - JWT_SECRET=${JWT_SECRET}
-      - JWT_EXPIRATION=${JWT_EXPIRATION}
-      - SERVER_PORT=${SERVER_PORT}
-    depends_on:
-      - mysql
-    networks:
-      - warehouse-network
-    env_file:
-      - .env
+  services:
+    backend:
+      build:
+        context: ./warehouse-backend
+        dockerfile: Dockerfile
+      ports:
+        - "8080:8080"
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+        - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+        - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+        - JWT_SECRET=${JWT_SECRET}
+      depends_on:
+        - mysql
+      networks:
+        - warehouse-network
+      env_file:
+        - .env
 
 
-  frontend:
-    build:
-      context: ./warehouse-frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
-    depends_on:
-      - backend
-    networks:
-      - warehouse-network
+    frontend:
+      build:
+        context: ./warehouse-frontend
+        dockerfile: Dockerfile
+      ports:
+        - "3000:80"
+      depends_on:
+        - backend
+      networks:
+        - warehouse-network
 
-  mysql:
-    image: mysql:8.0
-    environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-    ports:
-      - "3307:3306"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - warehouse-network
+    mysql:
+      image: mysql:8.0
+      environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+      ports:
+        - "3307:3306"
+      volumes:
+        - mysql-data:/var/lib/mysql
+      networks:
+        - warehouse-network
 
-volumes:
-  mysql-data:
+  volumes:
+    mysql-data:
 
-networks:
-  warehouse-network:
-    driver: bridge
+  networks:
+    warehouse-network:
+      driver: bridge

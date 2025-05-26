@@ -5,7 +5,11 @@ import lombok.Data;
 @Data
 public class CategoryDTO {
     private Long id;
-    private String name; // Tên danh mục
+    private String name;
 }
+
+
+
+
 
 
