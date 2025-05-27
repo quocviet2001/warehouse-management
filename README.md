@@ -99,10 +99,10 @@ warehouse-management/
    - Chạy lệnh sau để vào MySQL:
 
      ```bash
-     docker exec -it warehouse_mysql_1 mysql -u root -p<yourpassword> warehouse_db
+     docker exec -it warehouse_mysql_1 mysql -u root -pyourpassword warehouse_db
      ```
 
-     **Lưu ý**: `warehouse-mysql-1` là tên container, kiểm tra bằng `docker ps` và thay thế. Thay <yourpassword> bằng mật khẩu database đã tạo ở file .env của bạn.
+     **Lưu ý**: `warehouse-mysql-1` là tên container, kiểm tra bằng `docker ps` và thay thế. Thay yourpassword bằng mật khẩu database đã tạo ở file .env của bạn.
 
 3. **Chèn tài khoản admin**:
    - Trong MySQL, chạy lệnh sau, thay `YOUR_BCRYPT_HASH_HERE` bằng hash BCrypt vừa tạo:
