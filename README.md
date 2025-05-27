@@ -113,8 +113,7 @@ warehouse-management/
      ```
 
 ### Bước 5: Truy cập ứng dụng và kiểm thử
-- **Frontend**: [http://localhost:3000](http://localhost:3000)
-1. **Đăng nhập**: Truy cập `http://localhost:3000/login` và sử dụng tài khoản `username/password` (Ví dụ:`admin/admin123`) nếu dữ liệu tài khoản đã nhập ở bước 4.
+1. **Đăng nhập**: Truy cập `http://localhost:3000/login` và sử dụng tài khoản `username/password` (Ví dụ:`admin/admin123` nếu dữ liệu tài khoản đã nhập ở bước 4).
 2. **Quản lý sản phẩm**: Vào `http://localhost:3000/products` để thêm/sửa/xóa sản phẩm.
 3. **Nhập/Xuất kho**: Kiểm tra `http://localhost:3000/stock-in` và `http://localhost:3000/stock-out`.
 4. **Báo cáo**: Truy cập `http://localhost:3000/reports` để tạo báo cáo.
