@@ -15,7 +15,7 @@
 - **Quản lý danh mục**: Sắp xếp các sản phẩm theo danh mục.
 - **Quản lý nhập/xuất kho**: Ghi nhận giao dịch nhập/xuất sản phẩm chi tiết, rõ ràng.
 - **Báo cáo**: Tạo báo cáo nhập/xuất với khả năng lọc dữ liệu theo khoảng thời gian.
-- **Giao diện responsive**: Xây dựng bằng ReactJS.
+- **Giao diện**: Xây dựng bằng ReactJS.
 - **Triển khai container**: Backend, Frontend và MySQL được đóng gói trong Docker.
 
 ## Công nghệ sử dụng
